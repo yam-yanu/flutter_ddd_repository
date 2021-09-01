@@ -7,8 +7,6 @@ import 'package:repository_sample/ddd/presentation/provider/cart.dart';
 import 'package:repository_sample/ddd/presentation/provider/product.dart';
 import 'package:repository_sample/isar.g.dart';
 
-final isarProvider = FutureProvider<Isar>((ref) => openIsar());
-
 class DDDShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

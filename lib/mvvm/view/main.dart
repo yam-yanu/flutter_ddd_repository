@@ -7,8 +7,6 @@ import 'package:repository_sample/mvvm/util/migrate_db.dart';
 import 'package:repository_sample/mvvm/view_model/cart_provider.dart';
 import 'package:repository_sample/mvvm/view_model/product_provider.dart';
 
-final isarProvider = FutureProvider<Isar>((ref) => openIsar());
-
 class MVVMShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
