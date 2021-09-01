@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^0.14.0+3
+  font_awesome_flutter: ^9.1.0
   isar: ^0.4.0
   isar_flutter_libs: ^0.4.0
   shrine_images: ^2.0.1

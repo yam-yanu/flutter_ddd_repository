@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:repository_sample/mvvm/view/main.dart';
 
 import 'god/main.dart';
 
@@ -10,21 +13,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        home: TopPage(),
       ),
-      home: TopPage(),
     );
   }
 }
@@ -39,7 +44,7 @@ class TopPage extends StatefulWidget {
 class _TopPageState extends State<TopPage> {
   final _pageList = [
     GodShoppingPage(),
-    GodShoppingPage(),
+    MVVMShoppingPage(),
     GodShoppingPage(),
   ];
 
@@ -55,15 +60,15 @@ class _TopPageState extends State<TopPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.warning_amber_outlined),
+            icon: FaIcon(FontAwesomeIcons.sadCry),
             label: '神クラス',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.brightness_1_outlined),
+            icon: FaIcon(FontAwesomeIcons.grinAlt),
             label: 'MVVM',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
+            icon: FaIcon(FontAwesomeIcons.smileBeam),
             label: 'DDD',
           ),
           // BottomNavigationBarItem(
