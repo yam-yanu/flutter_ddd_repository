@@ -9,7 +9,7 @@ class GodShoppingPage extends StatefulWidget {
 }
 
 class _GodShoppingPageState extends State<GodShoppingPage> {
-  Isar? isar;
+  bool isMigrated = false;
   List<Product>? products;
   // キーにproductId, 値に数量が入る
   Map<int, int> cart = {};
@@ -21,11 +21,11 @@ class _GodShoppingPageState extends State<GodShoppingPage> {
       body: SafeArea(
         child: MigrateDBWidget(
           onCompleteMigrate: (migrated) {
-            if (isar != null) {
+            if (isMigrated) {
               return;
             }
             setState(() {
-              isar = migrated;
+              isMigrated = true;
             });
           },
           child: FutureBuilder<void>(
@@ -167,12 +167,13 @@ class _GodShoppingPageState extends State<GodShoppingPage> {
   }
 
   Future<void> _fetchProductsAndCart() async {
-    if (isar == null || (products != null && products!.isNotEmpty)) {
+    if (products != null && products!.isNotEmpty) {
       return;
     }
+    final isar = await openIsar();
     final result = await Future.wait([
-      isar!.products.where().findAll(),
-      isar!.carts.where().findAll(),
+      isar.products.where().findAll(),
+      isar.carts.where().findAll(),
     ]);
     final newCart = <int, int>{};
     (result[1] as List<Cart>)
@@ -208,7 +209,8 @@ class _GodShoppingPageState extends State<GodShoppingPage> {
     payment = (payment * tax).toInt();
 
     // Cartの情報をDBに保存
-    await isar!.writeTxn((isar) async {
+    final isar = await openIsar();
+    await isar.writeTxn((isar) async {
       final carts = await isar.carts.where().findAll();
       await isar.carts.deleteAll(carts.map((cart) => cart.productId).toList());
       await isar.carts.putAll(newCart.entries.map((entry) {
